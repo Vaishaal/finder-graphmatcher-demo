@@ -1,0 +1,9 @@
+[submodule "jszip"]
+	path = jszip
+	url = git@github.com:Stuk/jszip.git
+[submodule "Raphael.JSON"]
+	path = Raphael.JSON
+	url = git@github.com:ElbertF/Raphael.JSON.git
+[submodule "FileSaver"]
+	path = FileSaver
+	url = git@github.com:eligrey/FileSaver.js.git
