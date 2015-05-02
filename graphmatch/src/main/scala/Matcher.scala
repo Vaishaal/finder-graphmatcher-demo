@@ -246,7 +246,12 @@ class Matcher (nodeList: List[GraphNode], edges:Map[String,List[Int]], alpha: Do
      val o = MongoDBObject("_id" -> kJson)
      val result = path_col.findOne(o)
      val paths = result.map(_.getAs[List[Int]]("paths")).flatten.getOrElse(Nil)
-     val graphPaths = paths map (pi => GraphPath(pi, path_lookup_col.findOne(MongoDBObject("_id" -> pi)).map(_.getAs[Long]("road")).flatten.getOrElse(-1), path_lookup_col.findOne(MongoDBObject("_id" -> pi)).map(_.getAs[Double]("weight")).flatten.getOrElse(1.0)))
+    val graphPaths = paths map (pi => GraphPath(pi, path_lookup_col.findOne(MongoDBObject("_id" -> pi))
+                                                                    .map(_.getAs[Long]("road"))
+                                                                    .flatten.getOrElse(-1), path_lookup_col
+                                                                    .findOne(MongoDBObject("_id" -> pi))
+                                                                    .map(_.getAs[Double]("weight"))
+                                                                    .flatten.getOrElse(1.0)))
      graphPaths filter (_.weight >= minProb)
 
   }
@@ -451,7 +456,6 @@ class Matcher (nodeList: List[GraphNode], edges:Map[String,List[Int]], alpha: Do
       val passed = ListBuffer[GraphPath]()
       for (path <- prelim) {
         val rightDirection = angleBetween(nodeIndex.get("key",path.road.toString).getSingle().attr.angle, angleL, angleH) || (roadMap(setPath) != mainRoad)
-        
         if (rightDirection && checkPath(path.toList, candidateNodes)) {
           passed += path
         }
