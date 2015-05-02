@@ -1,0 +1,33 @@
+This package contains the code to run shadow analysis.
+
+Package contents:
+   shadow (executable): determines from shadow parameters and latitude the
+      possible camera compass orientations
+   shadow_calib (executable): determines from camera calibration parameters and
+      picked points the shadow parameters
+   pixels.py: prints the coordinates of image pixels clicked by user
+
+   shadow_calib.cpp: self-contained source code for shadow_calib
+   shadow_main.cpp, shadow.h, shadow.cpp, shadow_util.h, shadow_util.cpp:
+      source code for shadow
+
+Binary executables developed and tested on Ubuntu 12.04, tested on Ubuntu 14.04
+The python component (pixels.py) relies on the tk package
+
+This code was originally developed with an assumed high degree of user
+ involvement, and may require some edits to streamline for script invocation.
+
+As-is pipeline:
+   Assume camera calibration parameters roll, tilt, principle point,
+      and focal length are given (e.g. from Sun-Chun).
+   Open query with pixels.py, click first the shadow tip, then its base, then
+      the top of the caster.
+   Run shadow_calib and interactively enter the above data.  Final line of
+      output is the length ratio and offset angle required by shadow.
+   Run shadow, passing latitude and shadow parameters on command line.
+
+In the event of edits to source code, the binaries were compiled with
+   (non-essential flags omitted):
+$ g++ -o shadow_calib shadow_calib.cpp
+$ g++ -o shadow shadow_main.cpp shadow.cpp shadow_util.cpp
+
