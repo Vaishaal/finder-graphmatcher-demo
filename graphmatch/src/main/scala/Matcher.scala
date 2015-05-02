@@ -79,7 +79,7 @@ object Matcher {
   }
 
 
-  def query(queryNodes:String, queryEdges:String, dbPath:String, maxLength:Int=MAX_PATH_LENGTH):Unit =  {
+  def query(queryNodes:String, queryEdges:String, dbPath:String, maxLength:Int=MAX_PATH_LENGTH, lowAngle: Double, highAngle: Double):Unit =  {
     println("STARTING QUERY")
     val maxDepth = 20
     val nodes_json = scala.io.Source.fromFile(queryNodes).mkString

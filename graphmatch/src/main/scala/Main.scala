@@ -49,7 +49,9 @@ case class Config(gen: Boolean = false,
                   dbpath: String = "/tmp/test.db",
                   nodejsonpath: String = "bg.nodes.json",
                   edgejsonpath: String = "bg.edges.json",
-                  weightjsonpath: String = "bg.weights.json"
+                  weightjsonpath: String = "bg.weights.json",
+                  lowAngle: Double = 0,
+                  highAngle: Double = 360
                   )
 object Main extends App {
 
@@ -75,6 +77,14 @@ val parser = new scopt.OptionParser[Config]("graphmatch") {
   .action { (x, c) => c.copy(nodejsonpath = x + ".nodes.json").copy(edgejsonpath = x +  ".edges.json").copy(weightjsonpath = x + ".weights.json")}
   .text("location of db json")
 
+  opt[Double]('l', "lowAngle")
+  .action { (x, c) =>  c.copy(lowAngle = x)}
+  .text("lower bound on angle of principle road ")
+
+  opt[Double]('h', "highAngle")
+  .action { (x, c) =>  c.copy(highAngle = x)}
+  .text("upper bound on angle of principle road ")
+
 }
 
 
@@ -86,7 +96,7 @@ parser.parse(args, Config()) map {
             if (config.gen) { new GenDb(config.dbpath, config.nodejsonpath, config.edgejsonpath, config.weightjsonpath)
                               println("Data base successfully generated")
                             }
-            if (config.queryNodes != "") Matcher.query(config.queryNodes,config.queryEdges, config.dbpath)
+            if (config.queryNodes != "") Matcher.query(config.queryNodes,config.queryEdges, config.dbpath, lowAngle=config.lowAngle, highAngle=config.highAngle)
   }
 }
 
