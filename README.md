@@ -5,18 +5,25 @@ This demo runs in a virtual box vm provisioned running under vagrant. This is to
 
 Steps:
 ---------------
-0. Install [virtual box](https://www.virtualbox.org/wiki/Downloads) and [vagrant](https://www.vagrantup.com/downloads.html)
-1. From the root of this repository type in ```vagrant up```. This will take some time as it will provision the virtual machine 
-and install all necessary dependencies
-2. Type in vagrant ssh, this should open up an ssh session into your virtual machine. This also spins up a python webserver for query generation
+1. Install java7, scala and mongodb
+2. Go to query_maker and run ``` python start.py```
 3. Go to localhost:8000 in your browser (preferably google chrome). This interface allows you to draw
-   graphs for the query. Press the blue download button to download the graph file.
-4. Transfer the {query_name}.nodes.json file and {query_name}.edges.json file and move it to this directory.
-5. ```cd ~/graphmatcher``` (inside your vm)
+   graphs for the query. Drag and drop the Press the blue download button to download the graph file.
+4. Transfer the {query_name}.nodes.json file and {query_name}.edges.json to the samples directory
+5. ```cd graphmatcher (inside this repo)```
 6. ``sbt compile;stage``
-7. ```./target/start --neo4jpath /tmp/graph.db --db ~/data/sampleJordanGraph -gr --query ~/{query_name}``
-8. The last step should run the graph matcher. This should take anywhere from 1 to 5 minutes. After a sucessful run, there will be a file
+7. start mongodb on its default port
+8. ```./target/start --neo4jpath /tmp/graph.db --db ../samples/sampleJordanGraph -gr --query ../samples/query/{query_name}```
+9. The last step should run the graph matcher. This should take anywhere from 1 to 5 minutes. After a sucessful run, there will be a file
 ```{query_name}.subgraph.json```. This json should will be the same format (specified below) as the query graph and background graph.
+10. You can run visualize.py with ```{query_name}.subgraph.json``` as an argument to generate a shp file to visualize your graph.
+
+
+Shadow Angles (optional)
+---------------------------
+To improve the matcher you can use the shadows from the image. Follow instructions from shadows/Readme
+to run the shadow angle pipeline. Then use the output of the shadow angles as an input to
+the graph matcher. (with the --lowAngle, --highAngle arguments)
 
 
 JSON format
