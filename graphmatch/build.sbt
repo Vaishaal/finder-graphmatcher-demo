@@ -36,7 +36,7 @@ libraryDependencies ++= Seq(
   "org.neo4j" % "neo4j-shell" % "1.9.4",
   "org.neo4j" % "neo4j-kernel" % "1.9.4",
   "org.neo4j" % "neo4j-rest-graphdb" % "1.9.3-SNAPSHOT",
-  "eu.fakod" % "neo4j-scala_2.10" % "0.3.1-SNAPSHOT",
+  "eu.fakod" % "neo4j-scala_2.10" % "0.3.0",
   "com.typesafe.slick" %% "slick" % "2.0.2",
   "org.json4s" %% "json4s-native" % "3.2.9",
   "com.github.scopt" %% "scopt" % "3.2.0",

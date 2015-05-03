@@ -119,9 +119,9 @@ with TypedTraverser {
     val (source, sink) =
       withTx {
         implicit neo =>
-          val source = bindNode(SOURCENODE, createNode())
-          val sink = bindNode(SINKNODE, createNode())
-          val nodes = (for ((k, v) <- node_map) yield (k, bindNode(v, createNode()))).toMap
+          val source = bindNode(SOURCENODE, createNode)
+          val sink = bindNode(SINKNODE, createNode)
+          val nodes = (for ((k, v) <- node_map) yield (k, bindNode(v, createNode))).toMap
           for ((k,v) <- node_map) nodeIndex += (nodes(k), "key", k.toString)
           for ((k,v) <- node_map) {
             val node = nodes(k)
